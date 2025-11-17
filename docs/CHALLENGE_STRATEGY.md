@@ -1,93 +1,122 @@
- Recomendación de Enfoque
+ Recommended Approach
 
-  🎯 Estrategia General
+🎯 General Strategy
 
-  Este desafío evalúa 3 pilares: Analytics (30%), Modeling (30%), y Code Quality (30%). Te recomiendo balancear tu tiempo entre ellos y enfocarte en la
-  simplicidad y claridad sobre la complejidad.
+This challenge evaluates 3 pillars: Analytics (30%), Modeling (30%), and Code Quality (30%). I recommend balancing your time between them and prioritizing simplicity and clarity over complexity.
 
-  🗓️ Etapas Recomendadas (2-3 horas)
+🗓️ Recommended Stages (2–3 hours)
 
-  Etapa 1: Setup & Exploración (30 min)
+**Stage 1: Setup & Exploration (30 min)**
 
-  1. Descargar y revisar los datos
-    - Priorizar: orders, order_items, products, customers
-    - Explorar estructura, missing values, relaciones entre tablas
-  2. Setup del proyecto
-    - Crear estructura de carpetas según el template
-    - Configurar virtual environment
-    - requirements.txt básico: pandas, numpy, scikit-learn, pytest
+1. Download and review the data
 
-  Etapa 2: Analytics (45 min)
+   * Prioritize: orders, order_items, products, customers
+   * Explore structure, missing values, relationships between tables
 
-  Objetivos clave:
-  - Top categorías por órdenes y GMV (Gross Merchandise Value)
-  - Repeat purchase rate
-  - Tiempo promedio entre órdenes
-  - Review score distribution
+2. Project setup
 
-  Tips:
-  - Usar joins simples entre dataframes
-  - Calcular métricas agregadas
-  - Identificar 2 insights no obvios con impacto de negocio
-  - Ejemplo de insight: "70% de clientes nunca repiten compra → oportunidad de retención"
+   * Create folder structure according to the template
+   * Set up a virtual environment
+   * Basic `requirements.txt`: pandas, numpy, scikit-learn, pytest
 
-  Etapa 3: Modeling (45-60 min)
+---
 
-  Recomendación: Empieza con RECOMMENDATION (más sencillo que prediction)
+**Stage 2: Analytics (45 min)**
 
-  Approach sugerido:
-  1. Baseline simple: Popularity-based (productos más vendidos)
-  2. Mejora: Co-purchase (clientes que compraron X también compraron Y)
-  3. Métrica: Precision@K o MAP@K
-  4. Evaluación: Train/test split por fecha o por cliente
+Key goals:
 
-  Estructura de código:
-  src/
-  ├── data_loader.py    # Cargar CSVs
-  ├── model.py          # RecommenderModel class
-  ├── evaluate.py       # precision_at_k()
-  └── main.py           # CLI
+* Top categories by orders and GMV (Gross Merchandise Value)
+* Repeat purchase rate
+* Average time between orders
+* Review score distribution
 
-  Etapa 4: Production Code (30 min)
+Tips:
 
-  1. CLI funcional:
-  python -m src.main --customer_id <ID> --top_k 5
-  2. Un test simple:
-  def test_model_returns_correct_number():
-      model = RecommenderModel()
-      recs = model.recommend(customer_id, top_k=5)
-      assert len(recs) == 5
-  3. Guardar modelo:
-    - Pickle del modelo o JSON de la matriz de co-purchase
+* Use simple joins between dataframes
+* Compute aggregated metrics
+* Identify 2 non-obvious insights with business impact
+* Example insight: “70% of customers never make a repeat purchase → retention opportunity”
 
-  Etapa 5: Documentación (15 min)
+---
 
-  1. README.md: Setup, cómo correr, cómo testear
-  2. Analytics summary (1 página): KPIs + 2 insights + visualizaciones simples
+**Stage 3: Modeling (45–60 min)**
 
-  ✨ Diferenciadores Clave
+Recommendation: Start with **RECOMMENDATION** (easier than prediction).
 
-  Para destacar:
-  - ✅ Código modular con clases bien definidas
-  - ✅ Insights con impacto de negocio claro
-  - ✅ Métrica de evaluación bien justificada
-  - ✅ Tests que validen lógica crítica
-  - ✅ README claro y reproducible
+Suggested approach:
 
-  Evitar:
-  - ❌ Notebooks como única entrega
-  - ❌ Modelos complejos sin baseline
-  - ❌ Sobre-ingeniería (KISS principle)
+1. Simple baseline: Popularity-based (best-selling products)
+2. Improvement: Co-purchase (customers who bought X also bought Y)
+3. Metric: Precision@K or MAP@K
+4. Evaluation: Train/test split by date or by customer
 
-  🚀 Quick Wins
+Code structure:
 
-  1. Analytics: Gráfico de distribución de review scores + tabla de top categorías
-  2. Model: Baseline popularity + co-purchase matrix
-  3. Code: Estructura según template + 2-3 tests básicos
-  4. Docs: README con comandos copy-paste + summary con bullets claros
+```text
+src/
+├── data_loader.py    # Load CSVs
+├── model.py          # RecommenderModel class
+├── evaluate.py       # precision_at_k()
+└── main.py           # CLI
+```
 
-  ¿Quieres que te ayude a empezar con alguna etapa específica? Puedo ayudarte a:
-  - Crear la estructura del proyecto
-  - Explorar los datos inicialmente
+---
+
+**Stage 4: Production Code (30 min)**
+
+1. Working CLI:
+
+```bash
+python -m src.main --customer_id <ID> --top_k 5
+```
+
+2. A simple test:
+
+```python
+def test_model_returns_correct_number():
+    model = RecommenderModel()
+    recs = model.recommend(customer_id, top_k=5)
+    assert len(recs) == 5
+```
+
+3. Save the model:
+
+   * Model pickle or JSON with the co-purchase matrix
+
+---
+
+**Stage 5: Documentation (15 min)**
+
+1. `README.md`: setup, how to run, how to test
+2. Analytics summary (1 page): KPIs + 2 insights + simple visualizations
+
+---
+
+✨ Key Differentiators
+
+To stand out:
+
+* ✅ Modular code with well-defined classes
+* ✅ Insights with clear business impact
+* ✅ Well-justified evaluation metric
+* ✅ Tests that validate critical logic
+* ✅ Clear, reproducible README
+
+Avoid:
+
+* ❌ Notebooks as the only deliverable
+* ❌ Complex models without a baseline
+* ❌ Over-engineering (KISS principle)
+
+---
+
+🚀 Quick Wins
+
+1. Analytics: Review score distribution plot + top categories table
+2. Model: Popularity baseline + co-purchase matrix
+3. Code: Template-based structure + 2–3 basic tests
+4. Docs: README with copy-paste commands + summary with clear bullets
+
   - Implementar el modelo de recomendación
+
   - Configurar los tests
