@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    container_name: olist-recommender-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./datos:/app/datos:ro
+      - ./models:/app/models
+      - ./outputs:/app/outputs
+    environment:
+      - DATA_DIR=/app/datos
+      - MODEL_PATH=/app/models/recommender.pkl
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
